@@ -28,7 +28,7 @@ Route::controller(RegisterController::class)->group(function(){
     Route::post('login', 'login');
 
 });
-Route::middleware('auth:sanctum')->group( functioon () {
+Route::middleware('auth:sanctum')->group( function () {
 
     Route::get('articles', [ArticleController::class, 'index']);
     Route::get('articles/{article}', [ArticleController::class, 'show']);
