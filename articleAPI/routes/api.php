@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\RegisterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +17,23 @@ use App\Http\Controllers\ArticleController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//  Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::get('articles', [ArticleController::class, 'index']);
-Route::get('articles/{article}', [ArticleController::class, 'show']);
-Route::post('articles', [ArticleController::class, 'store']);
-Route::put('articles/{article}', [ArticleController::class, 'update']);
-Route::delete('articles/{article}', [ArticleController::class, 'delete']);
+Route::controller(RegisterController::class)->group(function(){
+
+    Route::post('register', 'register');
+
+    Route::post('login', 'login');
+
+});
+Route::middleware('auth:sanctum')->group( function () {
+
+    Route::get('articles', [ArticleController::class, 'index']);
+    Route::get('articles/{article}', [ArticleController::class, 'show']);
+    Route::post('articles', [ArticleController::class, 'store']);
+    Route::put('articles/{article}', [ArticleController::class, 'update']);
+    Route::delete('articles/{article}', [ArticleController::class, 'delete']);
+
+});
